@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GARASONIC Multimedia — Precision Audio & Sound Architecture</title>
+    
+    <!-- Meta & Open Graph -->
+    <meta name="description" content="Garasonic Multimedia — Voiceover production, studio tracking, electronic composition, radio commercials, music editing & post-production, and studio IT systems administration.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://garasonic.net">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#050507',
+                        card: 'rgba(15, 15, 20, 0.65)',
+                        borderGlow: 'rgba(255, 255, 255, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #050507;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+        
+        .ambient-glow {
+            background: radial-gradient(circle at 50% 25%, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.03) 45%, transparent 75%);
+        }
+
+        /* Apple/Linear style frosted glass card with Cyan Glow on Hover */
+        .glass-card {
+            background: rgba(12, 12, 16, 0.55);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.38);
+            box-shadow: 0 0 25px -4px rgba(56, 189, 248, 0.16), inset 0 0 15px -3px rgba(56, 189, 248, 0.04);
+            transform: translateY(-2px);
+            background: rgba(14, 18, 26, 0.75);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-cyan-500/20 selection:text-cyan-300">
+
+    <!-- Interactive Audio Wave Canvas Background -->
+    <canvas id="waveformCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    <div class="fixed inset-0 ambient-glow pointer-events-none z-0"></div>
+
+    <!-- Header / Brand Status -->
+    <header class="relative z-10 w-full max-w-7xl mx-auto px-6 pt-10 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400">System // Initializing</span>
+        </div>
+        <div class="font-mono text-[11px] tracking-[0.15em] text-neutral-500">
+            LOC. 47.4979° N, 19.0402° E
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="relative z-10 flex-grow flex flex-col items-center justify-center px-6 py-16 text-center max-w-6xl mx-auto">
+        
+        <!-- Status Pill -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md mb-8">
+            <span class="text-xs font-mono uppercase tracking-[0.25em] text-neutral-300">Digital Presence In Development</span>
+        </div>
+
+        <!-- Brand Lockup with Edge-to-Edge Spotify Capsule Waveform Behind -->
+        <div class="relative inline-flex flex-col items-center justify-center mb-6 select-none max-w-full">
+            
+            <!-- Capsule Waveform Canvas -->
+            <canvas id="capsuleWaveCanvas" class="absolute -inset-y-6 sm:-inset-y-10 inset-x-0 w-full h-[calc(100%+3rem)] sm:h-[calc(100%+5rem)] pointer-events-none z-0"></canvas>
+
+            <!-- Foreground Typography -->
+            <h1 class="relative z-10 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-100 to-neutral-400 drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+                GARASONIC
+            </h1>
+            <p class="relative z-10 text-xs sm:text-sm md:text-base font-mono uppercase tracking-[0.45em] text-neutral-400 font-medium mt-1">
+                Multimedia
+            </p>
+        </div>
+
+        <!-- Atmospheric Tagline -->
+        <p class="max-w-2xl text-base sm:text-lg text-neutral-400 font-normal leading-relaxed tracking-tight mb-14">
+            The architecture of sound. High-fidelity audio production, electronic composition, and precision studio systems.
+        </p>
+
+        <!-- 6 Pillars Bento Grid (3x2 on desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full text-left">
+            
+            <!-- 01: Voiceover -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">01 / SPEECH</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Voiceover & Narration</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Elite commercial narration, character voicing, and broadcast dubbing.</p>
+            </div>
+
+            <!-- 02: Studio Recording -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">02 / TRACKING</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Studio Recording & Production</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Precision audio capture, vocal engineering, and sound production.</p>
+            </div>
+
+            <!-- 03: Electronic Music -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">03 / SYNTHESIS</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Electronic Music Composition</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Custom electronic scoring, sound design, and bespoke sonic branding.</p>
+            </div>
+
+            <!-- 04: Radio Commercials -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">04 / BROADCAST</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Radio Commercial Production</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Turnkey radio ad production, sonic identities, and broadcast mastering.</p>
+            </div>
+
+            <!-- 05: Audio Editing & Post-Production -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">05 / POST-PRODUCTION</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Audio Editing & Post-Production</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Precision music editing, multi-track assembly, sound cleanup, and comprehensive audio post.</p>
+            </div>
+
+            <!-- 06: Studio Systems & IT -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-default">
+                <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors duration-300 font-mono text-[11px] tracking-wider mb-6">06 / SYSTEMS & IT</div>
+                <h3 class="text-white text-base font-semibold tracking-tight mb-1">Studio Systems & IT Administration</h3>
+                <p class="text-neutral-400 text-xs leading-relaxed">Studio systems administration, device programming, and dedicated hardware/software maintenance.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-neutral-500 border-t border-white/[0.05] gap-4">
+        <div>
+            <span class="text-neutral-300 font-semibold tracking-wider">GARASONIC.NET</span>
+            <span class="mx-2 text-neutral-700">•</span>
+            <span>ALL RIGHTS RESERVED</span>
+        </div>
+        <div class="tracking-widest uppercase text-[11px] text-neutral-600">
+            LAUNCHING FORTHCOMING
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        /* 1. Background Ambient Sine Wave Canvas */
+        const bgCanvas = document.getElementById('waveformCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let bgWidth = bgCanvas.width = window.innerWidth;
+        let bgHeight = bgCanvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            bgWidth = bgCanvas.width = window.innerWidth;
+            bgHeight = bgCanvas.height = window.innerHeight;
+            resizeCapsuleCanvas();
+        });
+
+        let bgStep = 0;
+        function drawBgWave(frequency, amplitude, speed, color, yOffset) {
+            bgCtx.beginPath();
+            bgCtx.strokeStyle = color;
+            bgCtx.lineWidth = 1.2;
+            for (let x = 0; x < bgWidth; x += 3) {
+                const distanceFactor = 1 + Math.sin((x / bgWidth) * Math.PI) * 0.35;
+                const y = Math.sin((x * frequency) + bgStep * speed) * amplitude * distanceFactor + yOffset;
+                if (x === 0) bgCtx.moveTo(x, y);
+                else bgCtx.lineTo(x, y);
+            }
+            bgCtx.stroke();
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgWidth, bgHeight);
+            const midY = bgHeight * 0.48;
+            drawBgWave(0.003, 35, 0.02, 'rgba(56, 189, 248, 0.20)', midY);
+            drawBgWave(0.004, 25, 0.015, 'rgba(255, 255, 255, 0.10)', midY - 6);
+            drawBgWave(0.002, 50, -0.01, 'rgba(99, 102, 241, 0.15)', midY + 12);
+            bgStep += 1;
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        /* 2. High-Density Spotify-Style Capsule Audio Bar Canvas */
+        const capCanvas = document.getElementById('capsuleWaveCanvas');
+        const capCtx = capCanvas.getContext('2d');
+        let capWidth = 0;
+        let capHeight = 0;
+
+        function resizeCapsuleCanvas() {
+            const rect = capCanvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            capWidth = rect.width;
+            capHeight = rect.height;
+            capCanvas.width = rect.width * dpr;
+            capCanvas.height = rect.height * dpr;
+            capCtx.scale(dpr, dpr);
+        }
+
+        setTimeout(resizeCapsuleCanvas, 50);
+
+        let capTime = 0;
+
+        function getBarHeightRatio(index, total) {
+            const norm = index / total;
+            const envelope = Math.sin(norm * Math.PI);
+            const wave1 = Math.sin(norm * 22 + capTime * 0.02) * 0.28;
+            const wave2 = Math.cos(norm * 45 - capTime * 0.03) * 0.18;
+            const wave3 = Math.sin(norm * 9) * 0.35;
+            
+            let val = (envelope * 0.45) + wave1 + wave2 + (wave3 * envelope);
+            return Math.max(0.12, Math.min(val, 0.95));
+        }
+
+        function drawCapsules() {
+            if (!capWidth || !capHeight) {
+                requestAnimationFrame(drawCapsules);
+                return;
+            }
+
+            capCtx.clearRect(0, 0, capWidth, capHeight);
+
+            const isMobile = capWidth < 640;
+            const barWidth = isMobile ? 3 : 4;
+            const gap = isMobile ? 3 : 4.5;
+            const step = barWidth + gap;
+
+            const numBars = Math.floor(capWidth / step);
+            const totalBarsWidth = numBars * step - gap;
+            const startX = (capWidth - totalBarsWidth) / 2;
+
+            capCtx.fillStyle = 'rgba(56, 189, 248, 0.28)';
+            capCtx.shadowColor = 'rgba(56, 189, 248, 0.45)';
+            capCtx.shadowBlur = 8;
+
+            const centerY = capHeight / 2;
+            const maxH = capHeight * 0.88;
+
+            for (let i = 0; i < numBars; i++) {
+                const x = startX + i * step;
+                const hRatio = getBarHeightRatio(i, numBars);
+                const barH = Math.max(barWidth * 2, maxH * hRatio);
+                const y = centerY - (barH / 2);
+
+                capCtx.beginPath();
+                if (capCtx.roundRect) {
+                    capCtx.roundRect(x, y, barWidth, barH, barWidth / 2);
+                } else {
+                    capCtx.rect(x, y, barWidth, barH);
+                }
+                capCtx.fill();
+            }
+
+            capTime += 1;
+            requestAnimationFrame(drawCapsules);
+        }
+
+        drawCapsules();
+    </script>
+</body>
+</html>
