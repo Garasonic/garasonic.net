@@ -67,8 +67,7 @@
 </head>
 <body class="relative min-h-screen flex flex-col justify-between selection:bg-cyan-500/20 selection:text-cyan-300">
 
-    <!-- Interactive Audio Wave Canvas Background -->
-    <canvas id="waveformCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    <!-- Ambient Glow (nem mozgó, statikus háttérfény) -->
     <div class="fixed inset-0 ambient-glow pointer-events-none z-0"></div>
 
     <!-- Header / Brand Status -->
@@ -173,44 +172,7 @@
 
     <!-- Scripts -->
     <script>
-        /* 1. Background Ambient Sine Wave Canvas */
-        const bgCanvas = document.getElementById('waveformCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        let bgWidth = bgCanvas.width = window.innerWidth;
-        let bgHeight = bgCanvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            bgWidth = bgCanvas.width = window.innerWidth;
-            bgHeight = bgCanvas.height = window.innerHeight;
-            resizeCapsuleCanvas();
-        });
-
-        let bgStep = 0;
-        function drawBgWave(frequency, amplitude, speed, color, yOffset) {
-            bgCtx.beginPath();
-            bgCtx.strokeStyle = color;
-            bgCtx.lineWidth = 1.2;
-            for (let x = 0; x < bgWidth; x += 3) {
-                const distanceFactor = 1 + Math.sin((x / bgWidth) * Math.PI) * 0.35;
-                const y = Math.sin((x * frequency) + bgStep * speed) * amplitude * distanceFactor + yOffset;
-                if (x === 0) bgCtx.moveTo(x, y);
-                else bgCtx.lineTo(x, y);
-            }
-            bgCtx.stroke();
-        }
-
-        function animateBg() {
-            bgCtx.clearRect(0, 0, bgWidth, bgHeight);
-            const midY = bgHeight * 0.48;
-            drawBgWave(0.003, 35, 0.02, 'rgba(56, 189, 248, 0.20)', midY);
-            drawBgWave(0.004, 25, 0.015, 'rgba(255, 255, 255, 0.10)', midY - 6);
-            drawBgWave(0.002, 50, -0.01, 'rgba(99, 102, 241, 0.15)', midY + 12);
-            bgStep += 1;
-            requestAnimationFrame(animateBg);
-        }
-        animateBg();
-
-        /* 2. High-Density Spotify-Style Capsule Audio Bar Canvas */
+        /* High-Density Spotify-Style Capsule Audio Bar Canvas */
         const capCanvas = document.getElementById('capsuleWaveCanvas');
         const capCtx = capCanvas.getContext('2d');
         let capWidth = 0;
@@ -223,9 +185,10 @@
             capHeight = rect.height;
             capCanvas.width = rect.width * dpr;
             capCanvas.height = rect.height * dpr;
-            capCtx.scale(dpr, dpr);
+            capCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
 
+        window.addEventListener('resize', resizeCapsuleCanvas);
         setTimeout(resizeCapsuleCanvas, 50);
 
         let capTime = 0;
